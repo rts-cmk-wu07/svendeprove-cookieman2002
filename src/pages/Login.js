@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
+import backgroundImage from "../mockup/splash-image.jpg"
 import FeatherIcon from "feather-icons-react";
 const Login = () => {
   return (
-    <div className="bg-splash-image h-screen bg-cover object-contain">
-      <Link to="/aktiviteter">
+    <div className="relative w-[100%]">
+      <div className="">
+      <img src={backgroundImage} className=" object-cover z-10 w-full overflow-hidden h-screen" alt="" />
+      </div>
+      <Link to="/" className="absolute z-50 top-1 left-2">
         <FeatherIcon
           className="rotate-[31deg]"
           icon="triangle"
@@ -13,10 +17,10 @@ const Login = () => {
           stroke="purple"
         />
       </Link>
-      <div className="flex items-center flex-col">
+      <div className="flex items-center flex-col absolute z-50 top-0 right-1/2">
         <LoginForm />
       </div>
-      <div className=" rotate-45 bg-purple h-[40rem] object-contain opacity-40 w-64 mt-10"></div>
+      <div className="backgroundBox z-40 h-screen absolute top-0 w-full"></div>
     </div>
   );
 };

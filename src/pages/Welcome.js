@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import backgroundImage from "../mockup/splash-image.jpg"
 
@@ -35,9 +35,10 @@ navigate(0)
         </div>
         <motion.div
           className="self-center mt-24 absolute bottom-28"
-          initial={{ marginLeft: -1000 }}
-          animate={{ marginLeft: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ marginLeft: -1000, translateY: 1000, scale: 10 }}
+          animate={{ marginLeft: 0, translateY: 0, scale: 1 }}
+          transition={{ delay: 1.5, ease: "easeInOut" }}
+          
         >
           <button
             className="bg-purple rounded-xl p-2 pr-8 pl-8 text-white" onClick={handleClick}

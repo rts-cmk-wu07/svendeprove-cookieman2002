@@ -7,17 +7,20 @@ const ActivityDetail = () => {
     url: `http://localhost:4000/api/v1/activities/${params.id}`
     })
 
+    function registerHandler(){
+    
+    }
+
     return ( <article className="flex bg-purple h-screen flex-col">
         <div className="relative flex flex-col">
-        <img src={data ? data.asset.url : ""} className="z-10" alt="" />
-        <div className="absolute bottom-20 z-30 justify-self-end right-0">
-        <button className="bg-purple rounded-xl p-2 pr-10 pl-10   text-white">Tilmeld</button>
+        <img src={data ? data.asset.url : ""} className="h-[60vh] object-cover z-10" alt="" />
+        <div className="absolute bottom-32 mr-10 z-30 justify-self-end drop-shadow-xl shadow-black  right-0">
+        <button onClick={registerHandler} className="bg-purple rounded-xl p-2 py-3 px-24   text-white">Tilmeld</button>
         </div>
-        <section className="z-50 relative flex flex-col text-white">
-            <h1>{loading ? <div>loading</div> : data && data.name }</h1>
-            <p>{data && data.minAge} - {data && data.maxAge} </p>
+        <section className="z-50 relative ml-10 flex flex-col text-grey font-normalText text-medium">
+            {loading ? <div className=""></div> : data &&  <h1 className=""> {data.name} </h1> }
+            <p>{data && data.minAge}-{data && data.maxAge} år </p>
             <p>{data && data.description}</p>
-            {console.log(data)}
         </section>
         </div>
     </article> );

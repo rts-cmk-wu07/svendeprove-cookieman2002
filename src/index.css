@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.backgroundBox {
+background-image: linear-gradient(-29deg, transparent 0 20%, #5E2E5388 20% 80%, transparent 20% 20% );
+
+}

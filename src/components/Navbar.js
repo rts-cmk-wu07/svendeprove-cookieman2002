@@ -4,20 +4,21 @@ import FeatherIcon from "feather-icons-react"
 
 const Navbar = () => {
     const params = useLocation()
-    console.log(params.pathname)
 
-    const welcomePage = params.pathname.split("/")[1].includes("welcome")
+    const LoginPage = params.pathname.split("/")[1].includes("login")
     const Notfound = params.pathname.split("/")[1].includes("*")
 
     const classChange = classNames({
-        "hidden": welcomePage && Notfound,
-        "flex": !welcomePage && !Notfound
+        "hidden": LoginPage && Notfound,
+        "flex": !LoginPage && !Notfound
 
     })
     return ( <nav className={classChange}>
-        <ul className="bg-white bottom-0 z-30 fixed h-10 flex justify-between pr-10 pl-4 pt gap-32 items-center shadow-black">
+        <ul className="bg-grey bottom-0 z-50 fixed h-12  flex justify-between w-screen pr-10  pl-4  gap-32 items-center shadow-black">
             <li className="p-2 border rounded-full">
-            <NavLink to="/" >
+            <NavLink to="/"
+        
+            >
                 <FeatherIcon icon="home" />
             </NavLink>
             </li>
@@ -27,7 +28,9 @@ const Navbar = () => {
                  </NavLink>
             </li>
             <li className="p-2 border rounded-full">
-            <NavLink to="/kalender">
+            <NavLink to="/kalender"
+            
+            >
                 <FeatherIcon icon="calendar" />
             </NavLink>
             </li>

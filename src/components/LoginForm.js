@@ -1,8 +1,17 @@
 import axios from "axios";
-
+import { useContext } from "react";
+import { useNavigate } from "react-router";
+import useCookie from "react-use-cookie"
+import { TokenContext } from "../context/TokenProvider";
 const LoginForm = () => {
+const [, setTokenCookie] = useCookie("user-token", "")
+const {setToken, token} = useContext(TokenContext)
+const navigate = useNavigate()
+
   async function submitHandler(e) {
     e.preventDefault();
+    
+    
     const formular = {
       username: e.target.username.value,
       password: e.target.password.value,
@@ -10,14 +19,24 @@ const LoginForm = () => {
     const res = await axios.post("http://localhost:4000/auth/token", formular);
     console.log(res.data);
 
-    console.log(formular);
+    if (res.status === 200) {
+      if (e.target.remember.checked) {
+        const miliseconds = res.data.validUntil - Date.now();
+        const validFor = miliseconds / (1000 * 60 * 60 * 24);
+        setTokenCookie(JSON.stringify(res.data), {
+          days: validFor,
+          SameSite: "Strict",
+        });
+        setToken(res.data)
+      }
+    }
   }
   return (
     <form
-      className="z-20 absolute flex flex-col gap-3 mt-32 "
+      className="z-20 absolute flex flex-col gap-3 mt-72 "
       onSubmit={submitHandler}
     >
-      <h1 className="text-white text-big">Login</h1>
+      <h1 className="text-grey text-big">Log in</h1>
       <label>
         <input
           type="text"
@@ -34,12 +53,12 @@ const LoginForm = () => {
           className="p-2"
         />
       </label>
-      <label className="flex items-center justify-center text-white">
-        <p>remember me</p>
+      <label className="flex items-center justify-center text-grey">
         <input type="checkbox" name="remember" />
+        <p>remember me</p>
       </label>
       <button
-        className="bg-purple text-white drop-shadow-md pr-7 pl-7"
+        className="bg-purple text-grey drop-shadow-md shadow-black rounded-l px-7 text-small"
         type="submit"
       >
         Login

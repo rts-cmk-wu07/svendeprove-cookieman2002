@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Welcome from "./pages/Welcome";
-
+import NotFound from "./pages/NotFound"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./template/Layout";
 import Search from "./pages/Search";
@@ -10,6 +10,8 @@ import Activities from "./pages/Activites";
 import Calendar from "./pages/Calendar";
 import Login from "./pages/Login";
 import ActivityDetail from "./pages/ActivityDetail";
+import TokenProvider from "./context/TokenProvider";
+import ProtectedRoute from "./context/ProtectedRoute";
 
 const routes = createBrowserRouter([
   {
@@ -21,13 +23,17 @@ const routes = createBrowserRouter([
         element: <Activities />,
       },
       {
+      path: "*",
+      element: <NotFound/>
+      },
+      {
         path: "/søg",
         element: <Search />,
       },
       
       {
         path: "/kalender",
-        element: <Calendar />,
+        element:  <ProtectedRoute><Calendar /></ProtectedRoute>,
       },
       {
         path: "/login",
@@ -44,7 +50,9 @@ const routes = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <TokenProvider>
     <RouterProvider router={routes} />
+    </TokenProvider>
   </React.StrictMode>
 );
 
