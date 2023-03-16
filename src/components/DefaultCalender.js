@@ -16,7 +16,7 @@ const DefaultCalender = ({ userToken }) => {
     <div className="bg-purple flex mb-12 flex-col items-center justify-center">
       <h1 className="text-grey text-big self-start pl-5 pt-5">Kalender</h1>
       {loading ? <div>Loading</div> : data && data.activities.map(item => (
-        <Link to={`/aktivitetsDetalje/${item.id}`} className="bg-grey rounded-lg " >
+        <Link to={`/aktivitetsDetalje/${item.id}`} key={item.id} className="bg-grey rounded-lg " >
             <h2 className="text-big text-ellipsis ">{item.name}</h2>
             
             <p className="text-medium ">{item.weekday} {item.time}</p>

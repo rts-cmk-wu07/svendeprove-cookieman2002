@@ -1,36 +1,52 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import useCookie from "react-use-cookie"
+import useCookie from "react-use-cookie";
 import { TokenContext } from "../context/TokenProvider";
 const LoginForm = () => {
-const [, setTokenCookie] = useCookie("user-token", "")
-const {setToken, token} = useContext(TokenContext)
-const navigate = useNavigate()
+  const [, setTokenCookie] = useCookie("user-token", "");
+  const [loading, setLoading] = useState(false);
+  const {token, setToken } = useContext(TokenContext);
+  const navigate = useNavigate();
+
 
   async function submitHandler(e) {
     e.preventDefault();
-    
-    
-    const formular = {
-      username: e.target.username.value,
-      password: e.target.password.value,
-    };
-    const res = await axios.post("http://localhost:4000/auth/token", formular);
-    console.log(res.data);
+    try {
+      setLoading(true);
+      const formular = {
+        username: e.target.username.value,
+        password: e.target.password.value,
+      };
+      const res = await axios.post(
+        "http://localhost:4000/auth/token",
+        formular
+      );
 
-    if (res.status === 200) {
-      if (e.target.remember.checked) {
-        const miliseconds = res.data.validUntil - Date.now();
-        const validFor = miliseconds / (1000 * 60 * 60 * 24);
-        setTokenCookie(JSON.stringify(res.data), {
-          days: validFor,
-          SameSite: "Strict",
-        });
-        setToken(res.data)
+      if (res.status === 200) {
+        if (e.target.remember.checked) {
+          const miliseconds = res.data.validUntil - Date.now();
+          const validFor = miliseconds / (1000 * 60 * 60 * 24);
+          setTokenCookie(JSON.stringify(res.data), {
+            days: validFor,
+            SameSite: "Strict",
+          });
+          setToken(res.data);
+        }
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      
     }
   }
+  useEffect(() => {
+    if(token){
+    navigate("/kalender")
+    }
+  }, [token]);
+  
   return (
     <form
       className="z-20 absolute flex flex-col gap-3 mt-72 "

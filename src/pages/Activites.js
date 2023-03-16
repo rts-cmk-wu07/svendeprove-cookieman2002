@@ -12,7 +12,7 @@ const Activities = () => {
       {loading ? (
         <div
           className="absolute top-52 left-40  w-20 h-20 rounded-full animate-spin
-        border-y border-solid border-black border-t-transparent"
+        border-b-8 border-solid border-pink border-t-transparent"
         ></div>
       ) : (
         data &&
