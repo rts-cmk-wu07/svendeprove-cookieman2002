@@ -19,6 +19,7 @@
 - [axios](#axios)
 - [TailwindCss](#tailwind-css)
 - [Framer-motion](#framer-motion)
+- [react-use-cookie](#react-use-cookie  )
 
 
 
@@ -32,8 +33,20 @@ i am using `React-router-dom`
 
 ### Tailwind css
 
+i am using `tailwind css`
+
 ### Axios
+
+i am using `axios`
 
 ### Feather-icons-react
 
+i am using `feather-icons-react`
+
 ### Framer motion
+
+i am using `framer-motion`
+
+### react-use-cookie
+
+i am using `react-use-cookie`

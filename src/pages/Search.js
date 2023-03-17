@@ -1,10 +1,11 @@
 import FeatherIcon from "feather-icons-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import GetAsset from "../components/GetAsset";
 import useAxios from "../hooks/Useaxios";
+import { motion } from "framer-motion";
 const Search = () => {
-  const { data, loading } = useAxios({
+  const { data } = useAxios({
     url: "http://localhost:4000/api/v1/activities",
   });
 
@@ -44,7 +45,6 @@ const Search = () => {
                     <div className="rounded-bl-2xl rounded-tr-2xl absolute -translate-y-12 mb-5 bg-pink bg-opacity-75 ml-10 w-[88%] z-20">
                       <h1>{item.name}</h1>
                       <p>
-                        
                         {item.minAge} - {item.maxAge}
                       </p>
                     </div>
@@ -53,6 +53,18 @@ const Search = () => {
               );
             })}
           </div>
+        )}
+        {!result && (
+          <motion.div 
+          initial={{opacity: 0, scale: 0.5}}
+          animate={{opacity: 1, scale: 1}}
+          transition={{delay: 1.5, ease: "easeInOut"}}
+          className="flex flex-col items-center text-grey text-medium w-64 mt-5">
+            <FeatherIcon icon="archive" size="32" />
+            <h1 className="text-grey text-medium w-64">
+              du har ikke søgt efter noget endnu
+            </h1>
+          </motion.div>
         )}
       </div>
     </div>

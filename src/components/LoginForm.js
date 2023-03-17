@@ -1,17 +1,20 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
 import useCookie from "react-use-cookie";
 import { TokenContext } from "../context/TokenProvider";
+import 'react-toastify/dist/ReactToastify.css';
 const LoginForm = () => {
   const [, setTokenCookie] = useCookie("user-token", "");
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const {token, setToken } = useContext(TokenContext);
   const navigate = useNavigate();
-
+  
 
   async function submitHandler(e) {
     e.preventDefault();
+    
     try {
       setLoading(true);
       const formular = {
@@ -24,6 +27,7 @@ const LoginForm = () => {
       );
 
       if (res.status === 200) {
+        toast.success("Logged in")
         if (e.target.remember.checked) {
           const miliseconds = res.data.validUntil - Date.now();
           const validFor = miliseconds / (1000 * 60 * 60 * 24);
@@ -33,11 +37,14 @@ const LoginForm = () => {
           });
           setToken(res.data);
         }
+        navigate("/")
       }
     } catch (error) {
-      console.log(error);
+      toast.error("You have an error")
     } finally {
       setLoading(false);
+    
+      
       
     }
   }
@@ -45,13 +52,14 @@ const LoginForm = () => {
     if(token){
     navigate("/kalender")
     }
-  }, [token]);
+  }, [token, navigate]);
   
   return (
     <form
       className="z-20 absolute flex flex-col gap-3 mt-72 "
       onSubmit={submitHandler}
     >
+      <ToastContainer theme="dark"/>
       <h1 className="text-grey text-big">Log in</h1>
       <label>
         <input

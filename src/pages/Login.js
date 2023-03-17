@@ -8,13 +8,13 @@ const Login = () => {
       <div className="">
       <img src={backgroundImage} className=" object-cover z-10 w-full overflow-hidden h-screen" alt="" />
       </div>
-      <Link to="/" className="absolute z-50 top-1 left-2">
+      <Link to="/" className="flex justify-center items-center w-8 h-8 rounded-full bg-purple absolute z-50 top-1 left-2">
         <FeatherIcon
-          className="rotate-[31deg]"
+          className="rotate-[31deg] mb-1"
           icon="triangle"
-          size="24"
-          fill="purple"
-          stroke="purple"
+          size="22"
+          fill="white"
+          stroke="none"
         />
       </Link>
       <div className="flex items-center flex-col absolute z-50 top-0 right-1/2">

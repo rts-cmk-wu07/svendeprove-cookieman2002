@@ -17,9 +17,9 @@ const Activities = () => {
       ) : (
         data &&
         data.map((item) => (
-          <Link className="mt-30 relative w-[90%] m-auto" to={`/aktivitetsDetalje/${item.id}`}>
+          <Link className="mt-30 relative w-[90%] m-auto" to={`/aktivitetsDetalje/${item.id}`} key={item.id}>
             <GetAsset assetID={item.id} />
-            <div className="rounded-bl-2xl rounded-tr-2xl absolute -translate-y-12 mb-5 bg-pink  bg-opacity-75 ml-10 w-[80.5%] z-20">
+            <div className="rounded-bl-2xl rounded-tr-2xl absolute  bottom-0 left-0 bg-pink  bg-opacity-75 ml-10 w-[80.5%] z-20">
               <h1>{item.name}</h1>
               <p> {item.minAge} - {item.maxAge} </p>
             </div>
