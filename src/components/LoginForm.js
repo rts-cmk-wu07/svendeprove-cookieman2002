@@ -79,7 +79,7 @@ const LoginForm = () => {
       </label>
       <label className="flex items-center justify-center text-grey">
         <input type="checkbox" name="remember" />
-        <p>remember me</p>
+        <p>Husk mig</p>
       </label>
       <button
         className="bg-purple text-grey drop-shadow-md shadow-black rounded-l px-7 text-small"

@@ -13,7 +13,7 @@ export default function UseAxios({url, headers = {}, method = "GET"}){
                 const res = await axios({url, headers, method})
                 setData(res.data)
             } catch (error) {
-                setError("du har fået en error")
+                setError("du har fået en error prøv igen senere")
                 console.error(error)
             }
             finally{

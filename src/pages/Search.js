@@ -5,14 +5,14 @@ import GetAsset from "../components/GetAsset";
 import useAxios from "../hooks/Useaxios";
 import { motion } from "framer-motion";
 const Search = () => {
-  const { data } = useAxios({
+  const { data, error } = useAxios({
     url: "http://localhost:4000/api/v1/activities",
   });
-
   const [searchValue, setSearchValue] = useState("");
   const filter = data?.filter((e) =>
     e.name.toLowerCase().includes(searchValue.toLowerCase())
   );
+  console.log(filter);
   let result = searchValue !== "" && filter?.length > 0;
 
   return (
@@ -55,18 +55,20 @@ const Search = () => {
           </div>
         )}
         {!result && (
-          <motion.div 
-          initial={{opacity: 0, scale: 0.5}}
-          animate={{opacity: 1, scale: 1}}
-          transition={{delay: 1.5, ease: "easeInOut"}}
-          className="flex flex-col items-center text-grey text-medium w-64 mt-5">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.5, ease: "easeInOut" }}
+            className="flex flex-col items-center text-grey text-medium w-64 mt-5"
+          >
             <FeatherIcon icon="archive" size="32" />
             <h1 className="text-grey text-medium w-64">
-              du har ikke søgt efter noget endnu
+              Ingen søge Resultater
             </h1>
           </motion.div>
         )}
       </div>
+      {error && <div className="text-grey flex text-medium justify-center">{error}</div>}
     </div>
   );
 };

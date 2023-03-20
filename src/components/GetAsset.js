@@ -1,12 +1,12 @@
 import UseAxios from "../hooks/Useaxios";
 
 const GetAsset = ({ assetID }) => {
-  const { data, loading, } = UseAxios({
+  const { data, loading, error } = UseAxios({
     url: "http://localhost:4000/api/v1/assets/" + assetID,
   });
   return (
     <>
-      
+      {error && <div className="flex text-medium justify-center">{error}</div> }
       {loading ? (
         <div className="flex flex-col">
           <div className=" w-20 h-20 rounded-full animate-spin

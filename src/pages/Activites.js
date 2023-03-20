@@ -2,13 +2,14 @@ import GetAsset from "../components/GetAsset";
 import UseAxios from "../hooks/Useaxios";
 import { Link } from "react-router-dom";
 const Activities = () => {
-  const { data, loading } = UseAxios({
+  const { data, loading, error } = UseAxios({
     url: "http://localhost:4000/api/v1/activities",
   });
 
   return (
     <div className="bg-purple flex mb-12 flex-col items-center justify-center">
       <h1 className="text-grey text-big self-start pl-5 pt-5">Aktiviteter</h1>
+      {error &&  <div className="flex justify-center text-medium">{error}</div> }
       {loading ? (
         <div
           className="absolute top-52 left-40  w-20 h-20 rounded-full animate-spin

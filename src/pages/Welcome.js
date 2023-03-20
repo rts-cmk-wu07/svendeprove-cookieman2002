@@ -34,7 +34,7 @@ navigate(0)
           
         </div>
         <motion.div
-          className="self-center mt-24 absolute bottom-28"
+          className="self-center mt-24 overflow-hidden absolute bottom-28"
           initial={{ marginLeft: -1000, translateY: 1000, scale: 10 }}
           animate={{ marginLeft: 0, translateY: 0, scale: 1 }}
           transition={{ delay: 1.5, ease: "easeInOut" }}

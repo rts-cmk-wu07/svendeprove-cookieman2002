@@ -38,7 +38,6 @@ const InstructorCalender = ({ userToken }) => {
             <p>
               {item.firstname} {item.lastname}
             </p>
-            {console.log(item)}
           </div>
         ))}
       {NoData && ""}

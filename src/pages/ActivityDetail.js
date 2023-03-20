@@ -11,7 +11,7 @@ const ActivityDetail = () => {
   const { token } = useContext(TokenContext);
   const [signedUp, setSignedUp] = useState(false);
   const [userData, setUserData] = useState([]);
-  const { data, loading } = UseAxios({
+  const { data, loading, error } = UseAxios({
     url: `http://localhost:4000/api/v1/activities/${params.id}`,
   });
   const userIds = data && data.users.map((item) => item.id);
@@ -26,10 +26,11 @@ const ActivityDetail = () => {
     
   }, [token, userIds]);
   function checkAge(){
+  
     if(userData?.age > data?.maxAge){
       return true
     }
-    else if(userData?.age <= data?.minAge){
+    if(userData?.age <= data?.minAge){
       return true
     }
     return false
@@ -38,8 +39,7 @@ const ActivityDetail = () => {
     
     if(token){
       (async function(){
-        try {
-          
+        try {  
           const res = await axios.get(`http://localhost:4000/api/v1/users/${token.userId}`, {headers: {"Authorization": "Bearer "+token.token }})
           setUserData(res.data)
         } catch (error) {
@@ -54,12 +54,11 @@ const ActivityDetail = () => {
   async function registerHandler() {
     if (token) {
       try {
-        const res = await axios.post(
+         await axios.post(
           `http://localhost:4000/api/v1/users/${token.userId}/activities/${params.id}`,
           {},
           { headers: { Authorization: "Bearer " + token.token } }
           );
-          console.log(res.data)
           setSignedUp(true);
         } catch (error) {
           console.log(error);
@@ -70,12 +69,10 @@ const ActivityDetail = () => {
     }
     async function handleLeave() {
       try {
-        console.log(token.token);
         const res = await axios.delete(
           `http://localhost:4000/api/v1/users/${token.userId}/activities/${params.id}`,
           { headers: { Authorization: "Bearer " + token.token } }
           );
-          console.log(res);
           setSignedUp(false);
         } catch (error) {
           console.log(error);
@@ -86,6 +83,7 @@ const ActivityDetail = () => {
 
       return (
         <article className="flex bg-purple h-screen flex-col">
+          {error && <div className="text-medium flex justify-center">{error}</div> }
       <div className="relative flex flex-col">
         {loading ? <div className="absolute top-52 left-40  w-20 h-20 rounded-full animate-spin
         border-b border-solid border-pink border-t-transparent"></div> : <img
@@ -111,7 +109,7 @@ const ActivityDetail = () => {
           ) : (
             <button
               onClick={registerHandler}
-              className={checkAge? "hidden" : "bg-purple rounded-xl p-2 py-3 px-24 text-white"}
+              className={checkAge()? "hidden" : " bg-purple rounded-xl p-2 py-3 px-24 text-white"}
             >
               Tilmeld
             </button>
